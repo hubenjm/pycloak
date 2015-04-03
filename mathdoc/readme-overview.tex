@@ -1,0 +1,522 @@
+\documentclass[11pt]{amsart}
+\usepackage{amssymb, amsthm, amsmath, graphicx}
+\usepackage{color}
+\usepackage{epsfig}
+\usepackage{algorithm, algpseudocode}
+\usepackage{epstopdf}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+
+\newcommand{ \hs }[0]{\hspace{.2cm}}
+\newcommand{ \vs }[0]{\vspace{.5cm}}
+\newcommand{ \rn }[1]{\mathbb{R}^{#1}}
+
+\newcommand{\sign}{\mathop{\mathrm{sign}}}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Hp}{\mathbb{H}}
+\newcommand{\Zplus}{\mathbb{Z}^{+}}
+\newcommand{\Sn}{\mathbb{S}}
+\newcommand{\St}{\mathbb{S}^2}
+
+\newcommand{\floor}[1]{\left\lfoor#1\right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil#1\right\rceil}
+
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\innp}[2]{\langle #1,#2\rangle}
+\newcommand{\paren}[1]{\left ( #1\right )}
+\newcommand{\bvec}[1]{\mathbf{#1}}
+\newcommand{\sgn}{\textrm{sgn }}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+
+\newcommand{\Dof}{\mathbf{D}}
+\newcommand{\D}{\partial}
+\newcommand{\grad}{\nabla}
+\newcommand{\curl}{\nabla \times}
+\renewcommand{\div}{\nabla \cdot}
+\newcommand{\ddx}{\frac{\D}{\D x}}
+\newcommand{\ddy}{\frac{\D}{\D y}}
+\newcommand{\ddz}{\frac{\D}{\D z}}
+\newcommand{\ddu}{\frac{\D}{\D u}}
+\newcommand{\ddv}{\frac{\D}{\D v}}
+\newcommand{\ddt}{\frac{\D}{\D t}}
+
+\newcommand{\bs}{\backslash}
+
+\newcommand{\Log}{\textrm{Log}}
+\newcommand{\Arg}{\textrm{Arg}}
+\newcommand{\Tan}{\textrm{Tan}}
+\newcommand{\Res}{\textrm{Res}}
+
+\newcommand{\im}{\textrm{Im }}
+\newcommand{\re}{\textrm{Re}}
+\newcommand{\rank}{\text{rank }}
+\newcommand{\img}{\text{Im }}
+\newcommand{\Ker}{\text{Ker }}
+\newcommand{\Id}{\textrm{Id}}
+\newcommand{\tr}{\mathrm{tr}}
+
+\newcommand{\T}[1]{\widetilde{#1}}
+\newcommand{\wtilde}[1]{\widetilde{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+\newcommand{\supp}{\textrm{supp}}
+
+\def\ii{{\rm i}}
+\def\dd{{\rm d}}
+\def\Im{{\it Im}}
+\def\ca{{\cal A}}
+\def\ct{{\cal T}}
+\def\Ba{{\bf a}}
+\def\Bb{{\bf b}}
+\def\Bc{{\bf c}}
+\def\Bd{{\bf d}}
+\def\Be{{\bf e}}
+\def\Bf{{\bf f}}
+\def\Bg{{\bf g}}
+\def\Bh{{\bf h}}
+\def\Bi{{\bf i}}
+\def\Bj{{\bf j}}
+\def\Bk{{\bf k}}
+\def\Bl{{\bf l}}
+\def\Bm{{\bf m}}
+\def\Bn{{\bf n}}
+\def\Bo{{\bf o}}
+\def\Bp{{\bf p}}
+\def\Bq{{\bf q}}
+\def\Br{{\bf r}}
+\def\Bs{{\bf s}}
+\def\Bt{{\bf t}}
+\def\Bu{{\bf u}}
+\def\Bv{{\bf v}}
+\def\Bw{{\bf w}}
+\def\Bx{{\bf x}}
+\def\By{{\bf y}}
+\def\Bz{{\bf z}}
+\def\BA{{\bf A}}
+\def\BB{{\bf B}}
+\def\BC{{\bf C}}
+\def\BD{{\bf D}}
+\def\BE{{\bf E}}
+\def\BF{{\bf F}}
+\def\BG{{\bf G}}
+\def\BH{{\bf H}}
+\def\BI{{\bf I}}
+\def\BJ{{\bf J}}
+\def\BK{{\bf K}}
+\def\BL{{\bf L}}
+\def\BM{{\bf M}}
+\def\BN{{\bf N}}
+\def\BO{{\bf O}}
+\def\BP{{\bf P}}
+\def\BQ{{\bf Q}}
+\def\BR{{\bf R}}
+\def\BS{{\bf S}}
+\def\BT{{\bf T}}
+\def\BU{{\bf U}}
+\def\BV{{\bf V}}
+\def\BW{{\bf W}}
+\def\BX{{\bf X}}
+\def\BY{{\bf Y}}
+\def\BZ{{\bf Z}}
+\def\B0{{\bf 0}}
+
+% Abbreviate definitions of bold greek symbols: note that defs.tex is
+% needed first
+\newcommand{\BGa}{\bfm\alpha}
+\newcommand{\BGb}{\bfm\beta}
+\newcommand{\BGd}{\bfm\delta}
+\newcommand{\BGe}{\bfm\epsilon}
+\newcommand{\BGve}{\bfm\varepsilon}
+\newcommand{\BGf}{\bfm\phi}
+\newcommand{\BGvf}{\bfm\varphi}
+\newcommand{\BGg}{\bfm\gamma}
+\newcommand{\BGc}{\bfm\chi}
+\newcommand{\BGi}{\bfm\iota}
+\newcommand{\BGk}{\bfm\kappa}
+\newcommand{\BGl}{\bfm\lambda}
+\newcommand{\BGn}{\bfm\eta}
+\newcommand{\BGm}{\bfm\mu}
+\newcommand{\BGv}{\bfm\nu}
+\newcommand{\BGp}{\bfm\pi}
+\newcommand{\BGt}{\bfm\tau}
+\newcommand{\BGvt}{\bfm\vartheta}
+\newcommand{\BGr}{\bfm\rho}
+\newcommand{\BGvr}{\bfm\varrho}
+\newcommand{\BGs}{\bfm\sigma}
+\newcommand{\BGvs}{\bfm\varsigma}
+\newcommand{\BGj}{\bfm\tau}
+\newcommand{\BGu}{\bfm\upsilon}
+\newcommand{\BGo}{\bfm\omega}
+\newcommand{\BGx}{\bfm\xi}
+\newcommand{\BGy}{\bfm\psi}
+\newcommand{\BGz}{\bfm\zeta}
+\newcommand{\BGD}{\bfm\Delta}
+\newcommand{\BGF}{\bfm\Phi}
+\newcommand{\BGG}{\bfm\Gamma}
+\newcommand{\BGL}{\bfm\Lambda}
+\newcommand{\BGP}{\bfm\Pi}
+\newcommand{\BGT}{\bfm\tau}
+\newcommand{\BGS}{\bfm\Sigma}
+\newcommand{\BGU}{\bfm\Upsilon}
+\newcommand{\BGO}{\bfm\Omega}
+\newcommand{\BGX}{\bfm\Xi}
+\newcommand{\BGY}{\bfm\Psi}
+
+\title{pycloak - Mathematical Background}
+\date{}
+\author[Mark Hubenthal]{Mark Hubenthal}
+\address{Department of Mathematics, University of Houston}
+\email{hubenjm@math.uh.edu}
+
+\begin{document}
+\maketitle
+
+\section{Background}
+\label{sec:background}
+\begin{figure}
+\centering
+\def \svgwidth{0.4\linewidth}
+\input{mainsetup.pdf_tex}
+\caption{An antenna defined by $\partial D_{a}$ with a control region $D_{c}$ and far field region $B_R(\B0)$ }\label{fig:mainsetup}
+\end{figure}
+This python module serves the purpose of solving the following general problem. We want to solve the Helmholtz equation
+\begin{equation*}
+\Delta u - k^{2} u = 0
+\end{equation*}
+in $\mathbb{R}^{2}$ for $k > 0$, but in such a way where we can cancel some incoming solution $u_{0}(\mathbf{x})$ on a particular region $D_{c} \subset \mathbb{R}^{2}$. We present the details as follows.
+
+Let $B_{R} \subset \mathbb{R}^{d}$ be the ball of radius $R > 0$. We assume $\B0\in D_{a} \subset  B_{R}$ is the region inside a single antenna with $C^{2}$ boundary, $\partial D_{a}$. We also let $D_{c} \subset B_{R}$ be the control region, which is assumed to satisfy $\overline{D_{c}} \cap \overline{D_{a}} = \emptyset$ (see Figure \ref{fig:mainsetup}). The numerical simulations in the current work are performed for the two dimensional case but implementation of the three dimensional case is in progress.
+
+Consider the function space
+\begin{equation*}
+\Xi = L^{2}(\partial D_{c}) \times L^{2}(\partial B_{R}),
+\end{equation*}
+endowed with the scalar product
+\begin{equation}
+(\phi,\psi)_{\Xi} = \int_{\partial D_{c}}\phi_{1}(\mathbf{y})\overline{\psi}_{1}(\mathbf{y})\,dS_{\mathbf{y}} + \int_{\partial B_{R}} \phi_{2}(\mathbf{y})\overline{\psi}_{2}(\mathbf{y})\,dS_{\mathbf{y}},
+\end{equation}
+which is a Hilbert space. Consider $K: L^{2}(\partial D_{a}) \to \Xi$, the double layer potential operator restricted to $\partial D_{c}$ and $\partial B_{R}$, respectively, defined by
+\begin{equation}
+\label{EQ:K}
+K\phi(\Bx,\Bz) =  (K_{1}\phi(\Bx), K_{2}\phi(\Bz)), \quad \phi \in L^{2}(\partial D_{a}),
+\end{equation}
+where
+\begin{align*}
+K_1\phi(\Bx) & = \int_{\partial D_{a}}\phi(\By)\frac{\partial
+\Phi(\Bx,\By)}{\partial \mathbf{\nu}_{\mathbf{y}}}ds_{\By}, \mbox{ for }\Bx\in
+\partial D_c,\nonumber\\
+K_2\phi(\Bz) & = \int_{\partial D_{a}}\phi(\By)\frac{\partial
+\Phi(\Bz,\By)}{\partial \mathbf{\nu}_{\mathbf{y}}}ds_{\By}, \mbox{ for }\Bz\in
+\partial B_R(\B0).
+\end{align*}
+Here $\Phi(\Bx, \By)$ represents the fundamental solution of the relevant Helmholtz operator, i.e.,
+\begin{equation}
+\Phi(\Bx,\By) = \left\{\begin{array}{ll}
+\frac{e^{ik|\Bx-\By|}}{4\pi|\Bx-\By|}, & \mbox{ for } d=3\vspace{0.15cm}\\
+\frac{i}{4}H_0^{(1)}(k|\Bx-\By|), & \mbox{ for } d=2\end{array}\right.
+\end{equation}
+with $H_{0}^{(1)} = J_{0} + iY_{0}$ representing the Hankel function of first type.
+
+We also introduce the adjoint operator $K^{*}: \Xi \to L^{2}(\partial D_{a})$, which can be shown to satisfy
+\begin{equation}
+K^{*}\psi(\mathbf{x}) = \int_{\partial D_{c}} \psi_{1}(\mathbf{y}) \overline{\frac{\partial \Phi(\mathbf{y},\mathbf{x})}{\partial \nu_{\mathbf{x}}}}\,dS_{\mathbf{y}} + \int_{\partial B_{R}} \psi_{2}(\mathbf{y}) \overline{\frac{\partial \Phi(\mathbf{y},\mathbf{x})}{\partial \nu_{\mathbf{x}}}}\, dS_{\mathbf{y}}, \quad \mathbf{x} \in \partial D_{a}. \label{eq:dlpotentialadjoint}
+\end{equation}
+Now consider the following problem: for a fixed wave number $k > 0$ and fixed $0 < \mu \ll 1$, find a function $h \in C(\partial D_{a})$ such that there exists a $u \in C^{2}(\mathbb{R}^{n} \setminus \overline{D_{a}}) \cap C^{1}(\mathbb{R}^{n} \setminus D_{a})$ solving
+\begin{equation}
+\left\{ \begin{array}{rl}
+(\Delta + k^{2}) u(\mathbf{x}) & = 0 \quad \mathbf{x} \in \mathbb{R}^{n} \setminus \overline{D_{a}}\\
+u & = h \quad \textrm{ on $\partial D_{a}$}\\
+\|u - f_{1}\|_{C(\overline{D}_{c})} & \leq \mu \\
+\|u\|_{C(\mathbb{R}^{n} \setminus B_{R}(\mathbf{0}))} & \leq \mu,
+\end{array}
+\right. \label{eq:inverseproblem}
+\end{equation}
+where $f_{1}$ is a solution to the Helmholtz equation in a neighborhood of the control region $D_{c}$. This problem is equivalent to: for a fixed wave number $k>0$ and given a function $f=(f_1,0) \in \Xi$ and $\mu > 0$, find a density function $\phi \in C(\partial D_{a})$ such that the residual $\|K\phi - f\|_{\Xi} $ is small, i.e., such that
+\begin{equation}
+\|K\phi - f\|_{\Xi} \leq \mu \label{eq:controlinequality}
+\end{equation} 
+
+Problem \eqref{eq:controlinequality} is in fact a Fredholm integral equation of the first kind, and it has been proved that the bounded and compact operator $K$ is also one-to-one and has a dense (but not closed) range, thus proving the existence of a class of solutions for \eqref{eq:controlinequality}. Given the fact that $K$ is compact and that its range is not closed, problem \eqref{eq:controlinequality} is ill-posed. By using regularization, one can approximate a solution to problem \eqref{eq:controlinequality} with an arbitrary level of accuracy $\mu \ll 1$. There are several methods known in the literature, but we will use the Tikhonov regularization method. This method, when applied to the operator $K:L^2(\partial D_a)\rightarrow \Xi$ proposes a solution $\phi_{\alpha}\in C(\partial D_{a})$ of the form 
+\begin{equation}
+\label{Tikhonov}
+\phi_{\alpha}=(\alpha I+K^*K)^{-1}K^*f, \quad 0<\alpha \ll 1,
+\end{equation}
+where $\alpha$ (the Tikhonov regularization parameter) is a suitably chosen regularization parameter. It is known that $\Vert K\phi_\alpha-f\Vert_\Xi\rightarrow 0$ as $\alpha\rightarrow 0$, but the optimal choice of $\alpha$ is an essential step in designing a feasible method (e.g., finding a minimal norm solution), and there are various modalities to do this. We will use the Morozov discrepancy principle associated to the following weighted residual space:
+\begin{equation}
+\label{space-Xi'}
+\Xi' = L^{2}(\partial D_{c}, \|f_{1}\|^{-2}dS) \times L^{2}(\partial B_{R}, (2\pi R)^{-1}dS).
+\end{equation}
+The reasoning behind using the weighted residual space $\Xi'$ for the discrepancy functional defined below (as opposed to $\Xi$) is as follows. Due to the asymptotic behavior of $\frac{\partial \Phi(\mathbf{x},\, \mathbf{y})}{\partial \nu_{\mathbf{y}}} = \mathcal{O}(|\mathbf{x}-\mathbf{y}|^{-1/2})$ as $|\mathbf{x}-\mathbf{y}| \to \infty$, we have that given a fixed density $\phi$, $\|K\phi\|_{L^{2}(\partial B_{R})} = \mathcal{O}(1)$ as $R \to \infty$. In other words, using the space $L^{2}(\partial B_{R})$ with the standard surface measure is not really suited to the decay properties of double layer potential solutions, because the decay of the normal derivative $\partial_{\nu}\Phi$ is too weak. Similarly, we use the relative norm
+\begin{equation}
+\label{eq:F1}
+\frac{\|[K\phi]_{1} - f_{1}\|_{L^{2}(\partial D_{c})}}{\|f_{1}\|_{L^{2}(\partial D_{c})}}
+\end{equation}
+on $\partial D_{c}$ because this is a useful quantity for determining how good the control is, regardless of the norm of $f_{1}$. Thus, for $f=(f_1,0)\in \Xi \subset \Xi'$, we will consider the weighted residual $\|K\phi - f\|_{\Xi'}^{2}$ defined as  
+\begin{equation}
+\label{disc-fun}
+\|K\phi - f\|_{\Xi'}^{2} = \displaystyle\frac{1}{\|f_{1}\|_{L^{2}(\partial D_{c})}^{2}}\| K_1\phi  - f_{1}\|_{L^{2}(\partial D_{c})}^{2} + \frac{1}{2\pi R} \|K_2\phi \|_{L^{2}(\partial B_{R})}^{2},
+\end{equation}
+and then make use of the Tikhonov regularization with Morozov's discrepancy principle for the unique choice of $\alpha$, i.e. such that
+\begin{equation}
+\label{Morozov}
+\|K\phi_\alpha - f\|_{\Xi'}^{2} =\delta^2,
+\end{equation}
+with $\displaystyle\delta^2\leq \mu^2\min\left\{\frac{1}{2\|f_{1}\|^2_{L^{2}(\partial D_{c})}}, \frac{1}{4\pi R}\right\}$.
+Please note that $\phi_\alpha$ in \eqref{Morozov} is given by the Tikhonov regularization for the operator  $K:L^2(\partial D_a)\rightarrow \Xi$ as described in \eqref{Tikhonov}. 
+
+We will account for noise and measurement errors and will consider \eqref{Morozov} with $f=(f_1,0)\in \Xi$ replaced by $f_\epsilon=(f_{\epsilon,1}, f_{\epsilon,2})\in \Xi$, given by 
+\begin{equation}
+\label{random-f}
+f_{\epsilon} = (f_{1} + \epsilon \widehat{\nu}\|f_{1}\|_{L^{2}(\partial D_{c})}, \, 0)\in \Xi,
+\end{equation} 
+where $\widehat{\nu} \in L^{2}(\partial D_{c})$ is a random perturbation with $\|\widehat{\nu}\| = 1$ and $f_{1} \in L^{2}(\partial D_{c})$ the far field of a far field observer. The goal of this program is to numerically compute the minimal norm solution uniquely determined by \eqref{Morozov}, analyze its stability for given noisy data in $\Xi$ and, in the case of data corresponding to a point source, analyze its sensitivity with respect to parameters such as: mutual distances between $D_a$, $D_c$ and $B_R(\B0)$; wave number $k$; and the location of the point source with respect to $B_R(\B0)$.
+
+\section{Implementation Details}
+We discretize the integral operator $K$ via the method of moment collocation. First we choose an approximate basis of functions for $L^{2}(\partial D_{a})$. To do this we suppose the domain $D_{a}$ can be parametrized in polar coordinates by points
+\begin{equation*}
+(s(\tau)\cos{\tau}, s(\tau)\sin{\tau})), \quad \tau \in [0,2\pi]
+\end{equation*}
+where $s:\mathbb{R} \to \mathbb{R}_{+}$ is a $2\pi$-periodic smooth function. Using these coordinates, any function $\phi$ defined on $\partial D_{a}$ can be realized via the pullback as a function of $\tau$:
+\begin{equation*}
+\phi(s(\tau)\cos{\tau}, s(\tau)\sin{\tau}).
+\end{equation*}
+For convenience, let us use the notation $\widehat{\tau} = (\cos{\tau},\sin{\tau})$ and $\widehat{\tau}^{\perp} = (-\sin{\tau}, \cos{\tau})$.
+
+Now let $n_{a} \in \mathbb{N}$ and let $\tau_{j} = \frac{2\pi j}{n}$, $0 \leq j \leq n_{a}-1$ be $n_{a}$ equally spaced points on the interval $[0,2\pi)$. We then use the exponential basis functions $\{e^{il\tau}\}_{l=0}^{n_{a}-1}$ for $L^{2}([0,2\pi])$ and approximate a given $\phi \in L^{2}(\partial D_{a})$ via interpolation at the points $\{\tau_{j}\}_{j=0}^{n_{a}-1} \subset [0,2\pi]$. Note that
+\begin{align}
+\int_{\partial D_{a}}\phi(\mathbf{y}) \frac{\partial \Phi}{\partial \nu_{\mathbf{y}}}(\mathbf{x},\mathbf{y})\,dS_{\mathbf{y}} & = \int_{0}^{2\pi}\phi(s(\tau)\cos{\tau},s(\tau)\sin{\tau})\frac{\partial \Phi}{\partial \nu_{y}}(\mathbf{x}, (s(\tau)\cos{\tau},s(\tau)\sin{\tau})) \notag\\
+& \quad \cdot \sqrt{s(\tau)^{2} + s'(\tau)^{2}}\,d\tau.
+\end{align}
+Furthermore, since $\left( s'(\tau)\cos{\tau} - s(\tau)\sin{\tau}, s(\tau)\cos{\tau} + s'(\tau)\sin{\tau}\right)$ is a tangent vector to $\partial D_{a}$, we have that
+\begin{align*}
+\nu(\mathbf{y}) = \nu(\tau) & = \frac{(s(\tau)\cos{\tau} + s'(\tau)\sin{\tau}, \, s(\tau)\sin{\tau} - s'(\tau)\cos{\tau})}{\sqrt{ s(\tau)^{2} + s'(\tau)^{2}}}\\
+& = \frac{s(\tau)\widehat{\tau} - s'(\tau)\widehat{\tau}^{\perp}}{\sqrt{ s(\tau)^{2} + s'(\tau)^{2}}}.
+\end{align*}
+is the unit outward normal vector to $\partial D_{a}$. It is then straightforward to compute in the case of Helmholtz equation in 2-D that
+\begin{align*}
+& \quad \frac{\partial \Phi}{\partial \nu_{\mathbf{y}}}(\mathbf{x}, (s(\tau)\cos{\tau},s(\tau)\sin{\tau}))\\
+& = \nabla_{y}\Phi(\mathbf{x}, (s(\tau)\cos{\tau}, s(\tau)\sin{\tau})) \cdot \nu(\tau)\\
+& = \frac{ik}{4}H_{0}^{(1)'}(k|\mathbf{x} - s(\tau)\widehat{\tau}|)\frac{s(\tau)\widehat{\tau} - \mathbf{x}}{\sqrt{s(\tau)^{2} + |\mathbf{x}|^{2} - 2s(\tau)\mathbf{x}\cdot \widehat{\tau}}} \cdot \frac{s(\tau)\widehat{\tau} - s'(\tau)\widehat{\tau}^{\perp}}{\sqrt{s(\tau)^{2} + s'(\tau)^{2}}}
+\end{align*}
+
+Let $n_{c} \in \mathbb{N}$ be the total number of sample points on $\partial D_{c}$. Also let $n_{R}$ be the total number of sample points on $\partial B_{R}$. We write the $2 \times (n_{c} + n_{R})$ matrix of points
+\begin{equation*}
+\mathbf{X} := [x_{1}, \ldots, x_{n_{c}+n_{R}}],
+\end{equation*}
+where each $x_{j}$ is a $2$-vector, $\{x_{j}\}_{j=1}^{n_{c}} \subset \partial D_{c}$ and $\{x_{j}\}_{j=n_{c}+1}^{n_{c} + n_{R}} \subset \partial B_{R}$. In the case when $D_{c}$ is the sector of an annulus, we have
+\begin{equation*}
+x_{j} = \left\{ \begin{array}{rl}
+\left[ \begin{array}{r}
+r_{i}\cos\paren{(j-1/2)\Delta \tau_{1}}\\
+r_{i}\sin\paren{(j-1/2)\Delta \tau_{1}} \end{array}\right] & 1 \leq j \leq n_{arc_1}\\
+(j-n_{arc_1} - 1/2)\Delta t[\cos(\tau_{f}), \, \sin(\tau_{f})]^{T} &  n_{arc_1} + 1 \leq j \leq n_{arc_1} + n_{s}\\
+\left[\begin{array}{r} r_{f}\cos\paren{(n_{arc_1}+n_{arc_2}+n_{s}-j+1/2)\Delta \tau_{2}}\\
+ r_{f}\sin\paren{(n_{arc_1}+n_{arc_2}+n_{s}-j+1/2)\Delta \tau_{2}} \end{array}\right] & n_{arc_1} + n_{s} + 1 \leq j \leq n_{c} - n_{s}\\
+(n_{arc_1}+n_{arc_2} + 2n_{s} - j + 1/2)\Delta t[\cos(\tau_{i}), \,\sin(\tau_{i})]^{T} & n_{c} - n_{s}+ 1 \leq j \leq n_{c} \end{array}\right\}.
+\end{equation*}
+Here $\Delta \tau_{1} = \frac{\tau_{2} - \tau_{1}}{n_{arc_1}}$, $\Delta \tau_{2} = \frac{\tau_{2} - \tau_{1}}{n_{arc_2}}$, and $\Delta t = \frac{r_{2} - r_{1}}{n_{s}}$, where $n_{s} = \ceiling{\frac{r_{2} - r_{1}}{r_{1}\Delta \tau_{1}}}$. Moreover, $n_{arc_{1}}$ is a chosen positive integer denoting the number of sample points to use on the inner arc of the control region, and from this we determine $ds_1 = r_{i}(\tau_{2} - \tau_{1})/n_{arc_1}$ and $n_{arc_2} = \ceiling{r_{2}(\tau_{2}-\tau_{1})/ds_{1}}$. In this case, $n_{c} = n_{arc_1}+n_{arc_2} + 2n_{s}$. For $z_{j}$ we simply have $z_{j} = [R\cos\paren{\frac{2\pi}{R}(j-1)}, R\sin\paren{\frac{2\pi}{R}(j-1)}]^{T}$, $1 \leq j \leq n_{R}$. See Figure \ref{fig:numericssetup} for details.
+\begin{figure}
+\centering
+\def \svgwidth{0.6\linewidth}
+\input{sectorcontrol.pdf_tex}
+\caption{Antenna and control region geometry used for numerical experiments.}\label{fig:numericssetup}
+\end{figure}
+
+For each $1 \leq j \leq n_{c} + n_{R}$ and each $0 \leq l \leq n_{a}-1$, we compute $K[e^{il\tau}](x_{j})$ via the approximation
+\begin{equation*}
+\frac{2\pi}{n_{a}}\sum_{m=0}^{n_{a}-1} \frac{\partial \Phi( x_{j}, [s(\tau_{m})\cos\paren{\tau_{m}}, s(\tau_{m})\sin\paren{\tau_{m}}]^{T})}{\partial \nu_{\mathbf{y}}} e^{il \tau_{m}}\sqrt{s(\tau_{m})^{2} + s'(\tau_{m})^{2}}.
+\end{equation*}
+If we fix $j$ and vary $l$, we see that the above sum is equivalent to computing the discrete fourier transform of the $n_{a}$-vector
+\begin{equation}
+\mathbf{v}_{j} := \left[\frac{\partial \Phi( x_{j}, [s(\tau_{m})\cos\paren{\tau_{m}}, s(\tau_{m})\sin\paren{\tau_{m} }]^{T})}{\partial \nu_{\mathbf{y}}}\sqrt{s(\tau_{m})^{2} + s'(\tau_{m})^{2}}\right]_{m=0}^{n_{a}-1}, \label{eq:vj}
+\end{equation}
+which can be computed efficiently using the Fast Fourier Transform algorithm. In particular
+\begin{equation*}
+[K\{e^{il\tau}\}(x_{j})]_{l=0}^{n_{a}-1} \approx 2\pi \mathsf{FFT}(\mathbf{v}_{j}),
+\end{equation*}
+where $\mathsf{FFT}$ is defined on $n_{a}$-vectors $\mathbf{v} = [v_{m}]_{m=1}^{n_{a}}$ by
+\begin{equation}
+\mathsf{FFT}(\mathbf{v})_{j} = \frac{1}{n_{a}}\sum_{m=1}^{n_{a}}v_{m}e^{\frac{2\pi i (m-1)(j-1)}{n_{a}}}.
+\label{eq:fft}
+\end{equation}
+So the matrix representation of $K$ is then the $n_{a} \times (n_{c} + n_{R})$ matrix
+\begin{equation}
+A := [2\pi \mathsf{FFT}(\mathbf{v}_{1}), \cdots ,2\pi \mathsf{FFT}(\mathbf{v}_{n_{c}+n_{R}})].
+\end{equation}
+Now, in order to approximately solve the ill-posed problem $K\phi = f$, we attempt to solve the linear system
+\begin{align*}
+K_{1}\phi(x_{j}) & = f_{1}(x_{j}), \quad 1 \leq j \leq n_{c}\\
+K_{2}\phi(x_{j}) & = f_{2}(x_{j}), \quad 1 \leq j \leq n_{R}.
+\end{align*}
+
+Since $A$ is computed with respect to the functions $\{e^{il\tau}\}$, we approximate the coefficients of $\phi$ with respect to the given basis:
+\begin{align*}
+c_{l} & := \frac{2\pi}{n_{a}}\sum_{m=0}^{n_{a}-1}e^{-il\tau_{m}}\phi(s(\tau_{m})\cos(\tau_{m}), s(\tau_{m})\sin(\tau_{m}))\\
+& \approx \frac{1}{2\pi}\int_{0}^{2\pi} e^{-il\tau}\phi(s(\tau)\cos(\tau), s(\tau)\sin(\tau))\,d\tau.
+\end{align*}
+Let
+\begin{equation*}
+h = [c_{l}]_{l=0}^{n_{a}-1}.
+\end{equation*}
+
+We now numerically compute the Tikhonov regularized solution
+\begin{equation*}
+h_{\alpha} := (A^{*}A + \alpha I)^{-1}A^{*}f,
+\end{equation*}
+with $\alpha > 0$. The solution $h_{\alpha}$ gives an approximation of the coefficients $c_{l}$ of the desired density $\phi$ with respect to the functions $\{e^{il\tau}\}_{l=0}^{n_{a}-1}$. We obtain the density $\phi_{\alpha}$ corresponding to $h_{\alpha}$ sampled at the angles $\tau_{m}$ on $\partial D_{a}$ by the formula
+\begin{equation*}
+\phi_{\alpha}(\tau_{m}) := \sum_{l=0}^{n_{a}-1}[h_{\alpha}]_{l}e^{il\tau_{m}}.
+\end{equation*}
+Note that we have yet to specify how the regularization parameter $\alpha$ is chosen.
+
+Because of the asymptotic behavior of $\frac{\partial \Phi(\mathbf{x},\, \mathbf{y})}{\partial \nu_{\mathbf{y}}} = \mathcal{O}(|\mathbf{x}-\mathbf{y}|^{-1/2})$ as $|\mathbf{x}-\mathbf{y}| \to \infty$, we have that given a fixed density $\phi$, $\|K\phi\|_{L^{2}(\partial B_{R})} = \mathcal{O}(1)$ as $R \to \infty$. In other words, using the space $L^{2}(\partial B_{R})$ with the standard surface measure is not really suited to the decay properties of double layer potential solutions, because the decay of the normal derivative $\partial_{\nu}\Phi$ is too weak. To this end, we instead use the averaged $L^{2}$ norm on $\partial B_{R}$ given by
+\begin{align*}
+\|f\|_{L^{2}(\partial B_{R}, \frac{1}{\sqrt{2\pi R}}dS)} & = \frac{1}{\sqrt{2\pi R}} \left( \int_{\partial B_{R}}|f(x)|^{2}\, dS_{x} \right)^{1/2}\\
+& \approx \frac{1}{\sqrt{N}}\left(\sum_{j=0}^{N-1}|f(\widehat{\tau}_{j})|^{2} \right)^{1/2}, \quad N \to \infty,
+\end{align*}
+where
+\begin{equation*}
+\widehat{\tau}_{j} = \paren{R\cos\left( \frac{2\pi j}{N} \right), \, R\sin\left( \frac{2\pi j}{N} \right)}.
+\end{equation*}
+For fixed $f$, we also use the relative norm
+\begin{equation}
+\label{eq:F1}
+\frac{\|[K\phi]_{1} - f_{1}\|_{L^{2}(\partial D_{c})}}{\|f_{1}\|_{L^{2}(\partial D_{c})}}
+\end{equation}
+on $\partial D_{c}$. Altogether, we will consider the double layer potential operator $K$ as a map from $L^{2}(\partial D_{a})$ to the space
+\begin{equation}
+\Xi' = L^{2}(\partial D_{c}, \|f_{1}\|^{-2}dS) \times L^{2}(\partial B_{R}, (2\pi R)^{-1}dS).
+\end{equation}
+After computing the residual $K\phi - f$, we will then need to compute
+\begin{equation*}
+\|K\phi - f\|_{\Xi'}^{2} = \frac{1}{\|f_{1}\|_{L^{2}(\partial D_{c})}^{2}}\| [K\phi]_{1}  - f_{1}\|_{L^{2}(\partial D_{c})}^{2} + \frac{1}{2\pi R} \|[K\phi]_{2} - f_{2}\|_{L^{2}(\partial B_{R})}^{2}.
+\end{equation*}
+
+We define the discrepancy function $F(\alpha)$ by
+\begin{equation}
+F(\alpha) = \|K\phi_{\alpha} - f\|_{\Xi'}^{2} - \delta^{2} \label{eq:F}
+\end{equation}
+where $\delta > 0$ is a fixed error parameter. This function is not globally increasing for every $\alpha > 0$, but it can be experimentally shown to be monotonically increasing for a range of $\alpha$ that includes the optimal regularization parameter with typical domain setups.
+
+Note that if we split the matrix $A$ into two blocks $A_{near}$ ($n_{c}$ by $n_{a}$) and $A_{far}$ ($n_{R}$ by $n_{a}$) so that
+\begin{equation*}
+A = \left[ \begin{array}{c}
+A_{near}\\
+A_{far}
+\end{array}\right],
+\end{equation*}
+then $[A\phi]_{1} = A_{near}\phi$, $[A\phi]_{2} = A_{far}\phi$, and $A^{*}A = A_{near}^{*}A_{near} + A_{far}^{*}A_{far}$. In the discretized setting, instead of (\ref{eq:F1}) we take
+\begin{equation}
+F(\alpha) =\frac{1}{\|f_{1}\|^{2}} \|A_{near}h_{\alpha} - f_{1}\|_{L^{2}(\partial D_{c})}^{2} + \frac{1}{2\pi R}\|A_{far}h_{\alpha} - f_{2}\|_{L^{2}(\partial B_{R})}^{2} - \delta^{2}
+\end{equation}
+with
+\begin{equation}
+h_{\alpha} = (A^{*}A + \alpha I)^{-1}A^{*}f = (A_{near}^{*}A_{near} + A_{far}^{*}A_{far} + \alpha I)^{-1}\paren{A_{near}^{*}f_{1} + A_{far}^{*}f_{2}}.
+\end{equation}
+We compute
+\begin{align}
+F'(\alpha) & = \frac{-2\alpha}{\|f_{1}\|_{L^{2}(\partial D_{c})}^{2}}\re\paren{\frac{\partial h_{\alpha}}{\partial \alpha}, \, h_{\alpha}} \notag\\
+& \quad + \paren{ \frac{1}{\pi R} - \frac{2}{\|f_{1}\|_{L^{2}(\partial D_{c})}^{2}}}\re\paren{\frac{\partial h_{\alpha}}{\partial \alpha}, \, A_{far}^{*}A_{far}h_{\alpha} - A_{far}^{*}f_{2}} \label{eq:dF1}\\
+\frac{\partial h_{\alpha}}{\partial \alpha} & = -(A^{*}A + \alpha I)^{-1}h_{\alpha}, \label{eq:dF2}
+\end{align}
+where $( \cdot, \cdot )$ denotes the $L^{2}$ inner product on $\partial D_{a}$.
+
+The function $f_{1}$ defined on $\partial D_{c}$ will typically be the trace of a plane wave or of the fundamental solution to the Helmholtz equation. Also, in all numerical examples presented herein, we assume $f_{2} \equiv 0$ on $\partial B_{R}$. A plane wave with frequency $k$ and direction $\xi$ ($\|\xi\| = 1$) is given by
+\begin{equation}
+e^{ik\xi \cdot \mathbf{x}}, \label{eq:planewavesol}
+\end{equation}
+and a spherical source is represented as
+\begin{equation}
+\frac{i}{4}H_{0}^{(1)}(k|\mathbf{x} - \mathbf{x}_{0}|), \label{eq:sphericalsource}
+\end{equation}
+where $\mathbf{x}_{0}$ is the source point (typically outside of $B_{R}$). Both are solutions to $(\Delta + k^{2})u = 0$.
+
+For such an $f_{1}$, there are some quantities in which we will be interested so as to determine the effectiveness of a given density $\phi$ in solving the problem $K\phi =f$. These are: the relative error of $K\phi$ on $\partial D_{c}$; the $L^{2}$ average of the norm of $K\phi$ on $\partial B_{R}$; the relative and absolute stability of $\phi$ when applying a small perturbation to $f_{1}$; the norm of $\phi$ on $\partial D_{a}$, which is directly related to the power of the antenna. In other words, we will measure
+\begin{equation}
+\frac{\|K_{1} \phi - f_{1}\|_{L^{2}(\partial D_{c})}}{\|f_{1}\|_{L^{2}(\partial D_{c})}}, \quad \frac{1}{\sqrt{2\pi R}} \|K_{2}\phi\|_{L^{2}(\partial B_{R})}, \label{eq:computevar1}
+\end{equation}
+\begin{equation}
+\frac{\|\phi^{\epsilon}- \phi^{0}\|_{L^{2}(\partial D_{a})}}{\|\phi^{0}\|_{L^{2}(\partial D_{a})}}, \quad \|\phi^{\epsilon} - \phi^{0}\|_{L^{2}(\partial D_{a})}, \label{eq:computevar2}
+\end{equation}
+and
+\begin{equation}
+\|\phi\|_{L^{2}(\partial D_{a})}, \label{eq:phinorm}
+\end{equation}
+where $\phi^{\epsilon}$ is the Tikhonov regularized solution to $K\phi = (f_{1}^{\epsilon},0)$ with $\|f_{1} - f_{1}^{\epsilon}\|_{L^{2}(\partial D_{c})} = \epsilon \|f_{1}\|_{L^{2}(\partial D_{c})}$, and $\phi^{0}$ is the solution with unperturbed $f_{1}$. Furthermore, the regularization parameters $\alpha$ used to determine $\phi^{0}$ and $\phi^{\epsilon}$ are chosen via Newton's Method using (\ref{eq:dF1}), (\ref{eq:dF2}) such that 
+\begin{align}
+\|K\phi^{0} - f\|_{\Xi'} & = \delta \notag\\
+\|K\phi^{\epsilon} - f^{\epsilon}\|_{\Xi'} & = \delta.
+\end{align}
+
+\subsection{Noise}
+When adding noise to the desired data $(f_{1}, 0)$, since we always want the trace on $\partial B_{R}$ to be $0$, we only add noise to $f_{1}$. We choose a random perturbation $\eta \in L^{2}(\partial D_{c})$ and set
+\begin{equation}
+f_{1}^{\epsilon} = f_{1} + \epsilon \widehat{\eta} \|f_{1}\|_{L^{2}(\partial D_{c})}, \label{eq:noiseterm}
+\end{equation}
+where $\epsilon > 0$ represents the relative percentage of noise added. In the discrete case, $\eta$ is chosen to be a vector of $n_{c}$ pseudorandom numbers on the interval $(-1,1)$. Furthermore, for reproducibility, whenever generating $\eta$ using a pseudorandom number generator, we always reset the seed to the same value.
+
+\subsection{Algorithm}
+In summary, algorithm \ref{alg:regsolve} gives the rough approach we use to solving the control problem.
+\begin{algorithm}
+\caption{Basic Collocation Method with Tikhonov Regularization Approach}
+\label{alg:regsolve}
+\begin{algorithmic}[]
+\Require{$k > 0$, $\textrm{tol} > 0$, $\delta > 0$, $\alpha_{i} > \alpha_{min} > 0$, $f = (f_{1},f_{2}) \in \Xi'$, $s(\tau)$.}
+	\State{Choose collocation points $\{y(\tau_{j})\}_{j=1}^{n_{a}} \subset \partial D_{a}$, $\{x_{j}\}_{j=1}^{n_{c} + n_{R}} \subset \partial D_{c} \times \partial B_{R}$.}
+	\State{Choose line search step parameter $\beta > 1$.}\\\\
+
+	\Comment{Compute matrix representation $A$ of $K:L^{2}(\partial D_{a}) \to \Xi'$}
+	\For{$q=1$ to $n_{c} + n_{R}$}
+		\State \begin{align*}
+A[j, :] & = \left[ \frac{i}{4}\sum_{l=0}^{n-1}e^{im \tau_{l}}\frac{\partial \Phi_{k}(x_{j}, y(\tau_{l}))}{\partial \nu_{\mathbf{y}}} \sqrt{s(\tau_{l})^{2} + s'(\tau_{l})^{2}}\,\frac{2\pi}{n} \right]_{m=0}^{n_{a}-1}\\
+& = 2\pi \mathsf{FFT}(\mathbf{v}_{j}).
+\end{align*}
+	\EndFor
+	\State $\mathbf{f}_{1} = [f_{1}(x_{j})]_{j=1}^{n_{c}}$, $\mathbf{f}_{2} = [f_{2}(x_{j})]_{j=n_{c}+1}^{n_{c}+n_{R}}$, $\mathbf{f} = [\mathbf{f}_{1}; \mathbf{f}_{2}]$
+	\State Set $\alpha = \alpha_{i}$
+	\State Set $h_{\alpha} \leftarrow (A^{*}A + \alpha I)^{-1}A^{*}\mathbf{f}$
+	\While{ $F(\alpha) := \|Ah_{\alpha} - \mathbf{f}\|_{\Xi'}^{2} - \delta^{2} > 0$ \textbf{and} $\alpha \geq \alpha_{min}$ }
+		\State $\alpha \leftarrow \alpha/\beta$
+		\State Recompute $h_{\alpha}$
+	\EndWhile
+	\If{ $F(\alpha) \leq 0$ }\\
+		\Comment{Use current value of $\alpha$ to start Newton's method}
+		\While{ $|F(\alpha)| > \mathrm{tol}$ }
+			\State $\partial_{\alpha} h_{\alpha} \leftarrow -(A^{*}A + \alpha I_{n_{c} + n_{R}})^{-1}h_{\alpha}$
+			\State $F'(\alpha) \leftarrow \frac{-2 \alpha}{\|f_{1}\|^{2}} \re\paren{ h_{\alpha}, \, \partial_{\alpha}h_{\alpha}}$\\
+			\State \qquad \qquad $ + \paren{\frac{1}{\pi R} - \frac{2}{\|f_{1}\|^{2}}}\re\paren{ \partial_{\alpha}h_{\alpha},\, A_{far}^{*}A_{far}h_{\alpha} - A_{far}^{*}f_{2}}$
+			\State $\alpha \leftarrow \alpha - \frac{F'(\alpha)}{F(\alpha)}$
+		\EndWhile
+	\EndIf
+	
+	\State{Compute $\phi_{\alpha}$ from $h_{\alpha}$.}
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Typical Parameters Used for Numerical Experiments\label{subsec:parametersetup}}
+Here we describe some of the parameters used for the various numerical experiments presented. In the research paper associated with this work, we usually assume that $\partial D_{a}$ is a circle with radius given by either $a = 0.01$ or $a = 0.1$, and that $\partial D_{c}$ is a sector of an annulus with $\theta_{1} = 3\pi/4$ and $\theta_{2} = 5\pi/4$. For the collocation method, we used $n_{a} = 256$ sample points on $\partial D_{a}$, $n_{\mathrm{inner \, arc}} = 256$ (number of points on inner arc of nearfield control region $\partial D_{c}$), and $n_{R} = 256$ (number of sample points on $\partial B_{R}$). We note that increasing $n_{\mathrm{inner \, arc}}$ or $n_{R}$ will put more emphasis on matching $f$ on $\partial D_{c}$ or $\partial B_{R}$, respectively. The discrepancy parameter $\delta$ used for Tikhonov regularization we chose at either $0.01$ or $0.02$. The number of points used on the other boundary segments of $\partial D_{c}$ are chosen so that the arc length differential is approximately constant. The key variables under consideration are $d = r_{1} - a$ (distance from $\partial D_{c}$ to $\partial D_{a}$), $k$, $\epsilon$ (perturbation parameter for adding noise to $f_{1}$), and $\xi$ (direction of plane wave solution).
+
+\end{document}
