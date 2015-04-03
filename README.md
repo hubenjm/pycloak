@@ -15,7 +15,7 @@ Dependencies
 
 Description
 -----------
-This package is designed to solve the a particular active control problem in two dimensions for the homogeneous Helmholtz equation. Mathematical details are presented in the included pdf file, [readme-overview.pdf](https://github.com/hubenjm/pycloak/blob/master/mathdoc/readme-overview.pdf). This software was written initially in order to yield numerical results for a recent research paper. As such, it includes a variety of modules and routines designed to set up the general framework of the problem, allowing for manipulation of many different domain parameters and coefficients. Once the problem is set up properly using the ```ControlProblem``` class, one can use tikhonov_solve from regsolve.py in order to find a given solution.
+This package is designed to solve the a particular active control problem in two dimensions for the homogeneous Helmholtz equation. Mathematical details are presented in the included pdf file, [readme-overview.pdf](https://raw.githubusercontent.com/hubenjm/pycloak/master/mathdoc/readme-overview.pdf). This software was written initially in order to yield numerical results for a recent research paper. As such, it includes a variety of modules and routines designed to set up the general framework of the problem, allowing for manipulation of many different domain parameters and coefficients. Once the problem is set up properly using the ```ControlProblem``` class, one can use tikhonov_solve from regsolve.py in order to find a given solution.
 
 API
 -------
@@ -66,11 +66,11 @@ One can generate the data for this experiment by inputting the following from wi
 ```$ python polar_vary_d_epsilon.py```  
 Once this completes input  
 ```$ python plot_polar_vary_d_epsilon.py polar_vary_d_epsilon_data.npz```  
-![alt text](https://github.com/hubenjm/)
+![figure 1](https://raw.githubusercontent.com/hubenjm/pycloak/master/experiments/polar_vary_d_epsilon.png)
 2. Similarly, we can conduct an experiment where the control region is a rectangle with lower left corner at (-0.021, -0.1), width 0.01, and height 0.2. This time the antenna is an array of circular antennas arranged vertically, each with radius a = 0.01. The spacing between antenna is given by s > 0 and one antenna is centered at the origin. We then vary the spacing between the antenna elements while adjusting how many there are in order to ensure that the array spans the entire width of the control rectangle. We also vary the wave number k over the interval [1, 20].  
 One can generate the data for this experiment by the following:  
 ```$ python linear_array_vary_s_k.py```  
 Once this is complete, input  
-```$ python plot_linear_array_vary_s_k.py linear_array_vary_s_k_data.npz```
-
+```$ python plot_linear_array_vary_s_k.py linear_array_vary_s_k_data.npz```  
+![figure 2](https://raw.githubusercontent.com/hubenjm/pycloak/master/experiments/linear_array_vary_s_k.png)
 
