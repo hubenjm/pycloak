@@ -208,7 +208,7 @@ This python module serves the purpose of solving the following general problem. 
 \end{equation*}
 in $\mathbb{R}^{2}$ for $k > 0$, but in such a way where we can cancel some incoming solution $u_{0}(\mathbf{x})$ on a particular region $D_{c} \subset \mathbb{R}^{2}$. We present the details as follows.
 
-Let $B_{R} \subset \mathbb{R}^{d}$ be the ball of radius $R > 0$. We assume $\B0\in D_{a} \subset  B_{R}$ is the region inside a single antenna with $C^{2}$ boundary, $\partial D_{a}$. We also let $D_{c} \subset B_{R}$ be the control region, which is assumed to satisfy $\overline{D_{c}} \cap \overline{D_{a}} = \emptyset$ (see Figure \ref{fig:mainsetup}). The numerical simulations in the current work are performed for the two dimensional case but implementation of the three dimensional case is in progress.
+Let $B_{R} \subset \mathbb{R}^{2}$ be the ball of radius $R > 0$. We assume $\B0\in D_{a} \subset  B_{R}$ is the region inside a single antenna with $C^{2}$ boundary, $\partial D_{a}$. We also let $D_{c} \subset B_{R}$ be the control region, which is assumed to satisfy $\overline{D_{c}} \cap \overline{D_{a}} = \emptyset$ (see Figure \ref{fig:mainsetup}). The numerical simulations in the current work are performed for the two dimensional case but implementation of the three dimensional case is in progress.
 
 Consider the function space
 \begin{equation*}
@@ -264,7 +264,9 @@ Problem \eqref{eq:controlinequality} is in fact a Fredholm integral equation of 
 \label{Tikhonov}
 \phi_{\alpha}=(\alpha I+K^*K)^{-1}K^*f, \quad 0<\alpha \ll 1,
 \end{equation}
-where $\alpha$ (the Tikhonov regularization parameter) is a suitably chosen regularization parameter. It is known that $\Vert K\phi_\alpha-f\Vert_\Xi\rightarrow 0$ as $\alpha\rightarrow 0$, but the optimal choice of $\alpha$ is an essential step in designing a feasible method (e.g., finding a minimal norm solution), and there are various modalities to do this. We will use the Morozov discrepancy principle associated to the following weighted residual space:
+where $\alpha$ (the Tikhonov regularization parameter) is a suitably chosen regularization parameter. It is known that $\Vert K\phi_\alpha-f\Vert_\Xi\rightarrow 0$ as $\alpha\rightarrow 0$, but the optimal choice of $\alpha$ is an essential step in designing a feasible method (e.g., finding a minimal norm solution), and there are various modalities to do this. 
+
+We will use the Morozov discrepancy principle associated to the following weighted residual space:
 \begin{equation}
 \label{space-Xi'}
 \Xi' = L^{2}(\partial D_{c}, \|f_{1}\|^{-2}dS) \times L^{2}(\partial B_{R}, (2\pi R)^{-1}dS).
@@ -274,7 +276,9 @@ The reasoning behind using the weighted residual space $\Xi'$ for the discrepanc
 \label{eq:F1}
 \frac{\|[K\phi]_{1} - f_{1}\|_{L^{2}(\partial D_{c})}}{\|f_{1}\|_{L^{2}(\partial D_{c})}}
 \end{equation}
-on $\partial D_{c}$ because this is a useful quantity for determining how good the control is, regardless of the norm of $f_{1}$. Thus, for $f=(f_1,0)\in \Xi \subset \Xi'$, we will consider the weighted residual $\|K\phi - f\|_{\Xi'}^{2}$ defined as  
+on $\partial D_{c}$ because this is a useful quantity for determining how good the control is, regardless of the norm of $f_{1}$. 
+
+Thus, for $f=(f_1,0)\in \Xi$, we will consider the weighted residual $\|K\phi - f\|_{\Xi'}^{2}$ defined as  
 \begin{equation}
 \label{disc-fun}
 \|K\phi - f\|_{\Xi'}^{2} = \displaystyle\frac{1}{\|f_{1}\|_{L^{2}(\partial D_{c})}^{2}}\| K_1\phi  - f_{1}\|_{L^{2}(\partial D_{c})}^{2} + \frac{1}{2\pi R} \|K_2\phi \|_{L^{2}(\partial B_{R})}^{2},
@@ -287,12 +291,14 @@ and then make use of the Tikhonov regularization with Morozov's discrepancy prin
 with $\displaystyle\delta^2\leq \mu^2\min\left\{\frac{1}{2\|f_{1}\|^2_{L^{2}(\partial D_{c})}}, \frac{1}{4\pi R}\right\}$.
 Please note that $\phi_\alpha$ in \eqref{Morozov} is given by the Tikhonov regularization for the operator  $K:L^2(\partial D_a)\rightarrow \Xi$ as described in \eqref{Tikhonov}. 
 
-We will account for noise and measurement errors and will consider \eqref{Morozov} with $f=(f_1,0)\in \Xi$ replaced by $f_\epsilon=(f_{\epsilon,1}, f_{\epsilon,2})\in \Xi$, given by 
+We will account for noise and measurement errors and will consider \eqref{Morozov} with $f=(f_1,0)\in \Xi$ replaced by 
 \begin{equation}
 \label{random-f}
 f_{\epsilon} = (f_{1} + \epsilon \widehat{\nu}\|f_{1}\|_{L^{2}(\partial D_{c})}, \, 0)\in \Xi,
 \end{equation} 
-where $\widehat{\nu} \in L^{2}(\partial D_{c})$ is a random perturbation with $\|\widehat{\nu}\| = 1$ and $f_{1} \in L^{2}(\partial D_{c})$ the far field of a far field observer. The goal of this program is to numerically compute the minimal norm solution uniquely determined by \eqref{Morozov}, analyze its stability for given noisy data in $\Xi$ and, in the case of data corresponding to a point source, analyze its sensitivity with respect to parameters such as: mutual distances between $D_a$, $D_c$ and $B_R(\B0)$; wave number $k$; and the location of the point source with respect to $B_R(\B0)$.
+where $\widehat{\nu} \in L^{2}(\partial D_{c})$ is a random perturbation with $\|\widehat{\nu}\| = 1$ and $f_{1} \in L^{2}(\partial D_{c})$ the far field of a far field observer. 
+
+The goal of this program is to numerically compute the minimal norm solution uniquely determined by \eqref{Morozov}, analyze its stability for given noisy data in $\Xi$ and, in the case of data corresponding to a point source, analyze its sensitivity with respect to parameters such as: mutual distances between $D_a$, $D_c$ and $B_R(\B0)$; wave number $k$; and the location of the point source with respect to $B_R(\B0)$.
 
 \section{Implementation Details}
 We discretize the integral operator $K$ via the method of moment collocation. First we choose an approximate basis of functions for $L^{2}(\partial D_{a})$. To do this we suppose the domain $D_{a}$ can be parametrized in polar coordinates by points
@@ -303,9 +309,8 @@ where $s:\mathbb{R} \to \mathbb{R}_{+}$ is a $2\pi$-periodic smooth function. Us
 \begin{equation*}
 \phi(s(\tau)\cos{\tau}, s(\tau)\sin{\tau}).
 \end{equation*}
-For convenience, let us use the notation $\widehat{\tau} = (\cos{\tau},\sin{\tau})$ and $\widehat{\tau}^{\perp} = (-\sin{\tau}, \cos{\tau})$.
 
-Now let $n_{a} \in \mathbb{N}$ and let $\tau_{j} = \frac{2\pi j}{n}$, $0 \leq j \leq n_{a}-1$ be $n_{a}$ equally spaced points on the interval $[0,2\pi)$. We then use the exponential basis functions $\{e^{il\tau}\}_{l=0}^{n_{a}-1}$ for $L^{2}([0,2\pi])$ and approximate a given $\phi \in L^{2}(\partial D_{a})$ via interpolation at the points $\{\tau_{j}\}_{j=0}^{n_{a}-1} \subset [0,2\pi]$. Note that
+Now let $n_{a} \in \mathbb{N}$ and let $\tau_{j} = \frac{2\pi j}{n_{a}}$, $0 \leq j \leq n_{a}-1$ be $n_{a}$ equally spaced points on the interval $[0,2\pi)$. We then use the exponential basis functions $\{e^{il\tau}\}_{l=0}^{n_{a}-1}$ for $L^{2}([0,2\pi])$ and approximate a given $\phi \in L^{2}(\partial D_{a})$ via interpolation at the points $\{\tau_{j}\}_{j=0}^{n_{a}-1} \subset [0,2\pi]$. Note that
 \begin{align}
 \int_{\partial D_{a}}\phi(\mathbf{y}) \frac{\partial \Phi}{\partial \nu_{\mathbf{y}}}(\mathbf{x},\mathbf{y})\,dS_{\mathbf{y}} & = \int_{0}^{2\pi}\phi(s(\tau)\cos{\tau},s(\tau)\sin{\tau})\frac{\partial \Phi}{\partial \nu_{y}}(\mathbf{x}, (s(\tau)\cos{\tau},s(\tau)\sin{\tau})) \notag\\
 & \quad \cdot \sqrt{s(\tau)^{2} + s'(\tau)^{2}}\,d\tau.
@@ -326,18 +331,20 @@ Let $n_{c} \in \mathbb{N}$ be the total number of sample points on $\partial D_{
 \begin{equation*}
 \mathbf{X} := [x_{1}, \ldots, x_{n_{c}+n_{R}}],
 \end{equation*}
-where each $x_{j}$ is a $2$-vector, $\{x_{j}\}_{j=1}^{n_{c}} \subset \partial D_{c}$ and $\{x_{j}\}_{j=n_{c}+1}^{n_{c} + n_{R}} \subset \partial B_{R}$. In the case when $D_{c}$ is the sector of an annulus, we have
+where each $x_{j}$ is a $2$-vector, $\{x_{j}\}_{j=1}^{n_{c}} \subset \partial D_{c}$ and $\{x_{j}\}_{j=n_{c}+1}^{n_{c} + n_{R}} \subset \partial B_{R}$. 
+
+Suppose now that $D_{c}$ is an annular sector defined by $r_{1} \leq r \leq r_{2}$ and $\theta_{1} \leq \theta \leq \theta_{2}$. Then we have
 \begin{equation*}
 x_{j} = \left\{ \begin{array}{rl}
 \left[ \begin{array}{r}
-r_{i}\cos\paren{(j-1/2)\Delta \tau_{1}}\\
-r_{i}\sin\paren{(j-1/2)\Delta \tau_{1}} \end{array}\right] & 1 \leq j \leq n_{arc_1}\\
-(j-n_{arc_1} - 1/2)\Delta t[\cos(\tau_{f}), \, \sin(\tau_{f})]^{T} &  n_{arc_1} + 1 \leq j \leq n_{arc_1} + n_{s}\\
-\left[\begin{array}{r} r_{f}\cos\paren{(n_{arc_1}+n_{arc_2}+n_{s}-j+1/2)\Delta \tau_{2}}\\
- r_{f}\sin\paren{(n_{arc_1}+n_{arc_2}+n_{s}-j+1/2)\Delta \tau_{2}} \end{array}\right] & n_{arc_1} + n_{s} + 1 \leq j \leq n_{c} - n_{s}\\
-(n_{arc_1}+n_{arc_2} + 2n_{s} - j + 1/2)\Delta t[\cos(\tau_{i}), \,\sin(\tau_{i})]^{T} & n_{c} - n_{s}+ 1 \leq j \leq n_{c} \end{array}\right\}.
+r_{1}\cos\paren{(j-1/2)\Delta \theta_{in}}\\
+r_{1}\sin\paren{(j-1/2)\Delta \theta_{out}} \end{array}\right] & 1 \leq j \leq n_{arc_1}\\
+(j-n_{arc_1} - 1/2)\Delta t[\cos(\theta_{2}), \, \sin(\theta_{2})]^{T} &  n_{arc_1} + 1 \leq j \leq n_{arc_1} + n_{s}\\
+\left[\begin{array}{r} r_{2}\cos\paren{(n_{arc_1}+n_{arc_2}+n_{s}-j+1/2)\Delta \tau_{2}}\\
+ r_{2}\sin\paren{(n_{arc_1}+n_{arc_2}+n_{s}-j+1/2)\Delta \tau_{2}} \end{array}\right] & n_{arc_1} + n_{s} + 1 \leq j \leq n_{c} - n_{s}\\
+(n_{arc_1}+n_{arc_2} + 2n_{s} - j + 1/2)\Delta t[\cos(\theta_{1}), \,\sin(\theta_{1})]^{T} & n_{c} - n_{s}+ 1 \leq j \leq n_{c} \end{array}\right\}.
 \end{equation*}
-Here $\Delta \tau_{1} = \frac{\tau_{2} - \tau_{1}}{n_{arc_1}}$, $\Delta \tau_{2} = \frac{\tau_{2} - \tau_{1}}{n_{arc_2}}$, and $\Delta t = \frac{r_{2} - r_{1}}{n_{s}}$, where $n_{s} = \ceiling{\frac{r_{2} - r_{1}}{r_{1}\Delta \tau_{1}}}$. Moreover, $n_{arc_{1}}$ is a chosen positive integer denoting the number of sample points to use on the inner arc of the control region, and from this we determine $ds_1 = r_{i}(\tau_{2} - \tau_{1})/n_{arc_1}$ and $n_{arc_2} = \ceiling{r_{2}(\tau_{2}-\tau_{1})/ds_{1}}$. In this case, $n_{c} = n_{arc_1}+n_{arc_2} + 2n_{s}$. For $z_{j}$ we simply have $z_{j} = [R\cos\paren{\frac{2\pi}{R}(j-1)}, R\sin\paren{\frac{2\pi}{R}(j-1)}]^{T}$, $1 \leq j \leq n_{R}$. See Figure \ref{fig:numericssetup} for details.
+Here $\Delta \theta_{in} = \frac{\theta_{2} - \theta_{1}}{n_{arc_1}}$, $\Delta \theta_{out} = \frac{\theta_{2} - \theta_{1}}{n_{arc_2}}$, and $\Delta t = \frac{r_{2} - r_{1}}{n_{s}}$, where $n_{s} = \ceiling{\frac{r_{2} - r_{1}}{r_{1}\Delta \theta_{in}}}$. Moreover, $n_{arc_{1}}$ is a chosen positive integer denoting the number of sample points to use on the inner arc of the control region, and from this we determine $ds_1 = r_{1}(\theta_{2} - \theta_{1})/n_{arc_1}$ and $n_{arc_2} = \ceiling{r_{2}(\theta_{2}-\theta_{1})/ds_{1}}$. In this case, $n_{c} = n_{arc_1}+n_{arc_2} + 2n_{s}$. For $z_{j}$ we simply have $z_{j} = [R\cos\paren{\frac{2\pi}{R}(j-1)}, R\sin\paren{\frac{2\pi}{R}(j-1)}]^{T}$, $1 \leq j \leq n_{R}$. See Figure \ref{fig:numericssetup} for details.
 \begin{figure}
 \centering
 \def \svgwidth{0.6\linewidth}
@@ -391,29 +398,6 @@ with $\alpha > 0$. The solution $h_{\alpha}$ gives an approximation of the coeff
 \phi_{\alpha}(\tau_{m}) := \sum_{l=0}^{n_{a}-1}[h_{\alpha}]_{l}e^{il\tau_{m}}.
 \end{equation*}
 Note that we have yet to specify how the regularization parameter $\alpha$ is chosen.
-
-Because of the asymptotic behavior of $\frac{\partial \Phi(\mathbf{x},\, \mathbf{y})}{\partial \nu_{\mathbf{y}}} = \mathcal{O}(|\mathbf{x}-\mathbf{y}|^{-1/2})$ as $|\mathbf{x}-\mathbf{y}| \to \infty$, we have that given a fixed density $\phi$, $\|K\phi\|_{L^{2}(\partial B_{R})} = \mathcal{O}(1)$ as $R \to \infty$. In other words, using the space $L^{2}(\partial B_{R})$ with the standard surface measure is not really suited to the decay properties of double layer potential solutions, because the decay of the normal derivative $\partial_{\nu}\Phi$ is too weak. To this end, we instead use the averaged $L^{2}$ norm on $\partial B_{R}$ given by
-\begin{align*}
-\|f\|_{L^{2}(\partial B_{R}, \frac{1}{\sqrt{2\pi R}}dS)} & = \frac{1}{\sqrt{2\pi R}} \left( \int_{\partial B_{R}}|f(x)|^{2}\, dS_{x} \right)^{1/2}\\
-& \approx \frac{1}{\sqrt{N}}\left(\sum_{j=0}^{N-1}|f(\widehat{\tau}_{j})|^{2} \right)^{1/2}, \quad N \to \infty,
-\end{align*}
-where
-\begin{equation*}
-\widehat{\tau}_{j} = \paren{R\cos\left( \frac{2\pi j}{N} \right), \, R\sin\left( \frac{2\pi j}{N} \right)}.
-\end{equation*}
-For fixed $f$, we also use the relative norm
-\begin{equation}
-\label{eq:F1}
-\frac{\|[K\phi]_{1} - f_{1}\|_{L^{2}(\partial D_{c})}}{\|f_{1}\|_{L^{2}(\partial D_{c})}}
-\end{equation}
-on $\partial D_{c}$. Altogether, we will consider the double layer potential operator $K$ as a map from $L^{2}(\partial D_{a})$ to the space
-\begin{equation}
-\Xi' = L^{2}(\partial D_{c}, \|f_{1}\|^{-2}dS) \times L^{2}(\partial B_{R}, (2\pi R)^{-1}dS).
-\end{equation}
-After computing the residual $K\phi - f$, we will then need to compute
-\begin{equation*}
-\|K\phi - f\|_{\Xi'}^{2} = \frac{1}{\|f_{1}\|_{L^{2}(\partial D_{c})}^{2}}\| [K\phi]_{1}  - f_{1}\|_{L^{2}(\partial D_{c})}^{2} + \frac{1}{2\pi R} \|[K\phi]_{2} - f_{2}\|_{L^{2}(\partial B_{R})}^{2}.
-\end{equation*}
 
 We define the discrepancy function $F(\alpha)$ by
 \begin{equation}
@@ -517,6 +501,6 @@ A[j, :] & = \left[ \frac{i}{4}\sum_{l=0}^{n-1}e^{im \tau_{l}}\frac{\partial \Phi
 \end{algorithm}
 
 \subsection{Typical Parameters Used for Numerical Experiments\label{subsec:parametersetup}}
-Here we describe some of the parameters used for the various numerical experiments presented. In the research paper associated with this work, we usually assume that $\partial D_{a}$ is a circle with radius given by either $a = 0.01$ or $a = 0.1$, and that $\partial D_{c}$ is a sector of an annulus with $\theta_{1} = 3\pi/4$ and $\theta_{2} = 5\pi/4$. For the collocation method, we used $n_{a} = 256$ sample points on $\partial D_{a}$, $n_{\mathrm{inner \, arc}} = 256$ (number of points on inner arc of nearfield control region $\partial D_{c}$), and $n_{R} = 256$ (number of sample points on $\partial B_{R}$). We note that increasing $n_{\mathrm{inner \, arc}}$ or $n_{R}$ will put more emphasis on matching $f$ on $\partial D_{c}$ or $\partial B_{R}$, respectively. The discrepancy parameter $\delta$ used for Tikhonov regularization we chose at either $0.01$ or $0.02$. The number of points used on the other boundary segments of $\partial D_{c}$ are chosen so that the arc length differential is approximately constant. The key variables under consideration are $d = r_{1} - a$ (distance from $\partial D_{c}$ to $\partial D_{a}$), $k$, $\epsilon$ (perturbation parameter for adding noise to $f_{1}$), and $\xi$ (direction of plane wave solution).
+Here we describe some of the parameters used for the various numerical experiments presented. In the research paper associated with this work, we usually assume that $\partial D_{a}$ is a circle with radius given by either $a = 0.01$ or $a = 0.1$, and that $\partial D_{c}$ is a sector of an annulus with $\theta_{1} = 3\pi/4$ and $\theta_{2} = 5\pi/4$. For the collocation method, we used $n_{a} = 256$ sample points on $\partial D_{a}$, $n_{\mathrm{inner \, arc}} = 256$ (number of points on inner arc of nearfield control region $\partial D_{c}$), and $n_{R} = 256$ (number of sample points on $\partial B_{R}$). We note that increasing $n_{arc_1}$ or $n_{R}$ will put more emphasis on matching $f$ on $\partial D_{c}$ or $\partial B_{R}$, respectively. The discrepancy parameter $\delta$ used for Tikhonov regularization we chose at either $0.01$ or $0.02$. The number of points used on the other boundary segments of $\partial D_{c}$ are chosen so that the arc length differential is approximately constant. The key variables under consideration are $d = r_{1} - a$ (distance from $\partial D_{c}$ to $\partial D_{a}$), $k$, $\epsilon$ (perturbation parameter for adding noise to $f_{1}$), and $\xi$ (direction of plane wave solution).
 
 \end{document}
